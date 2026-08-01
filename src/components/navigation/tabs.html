@@ -1,0 +1,99 @@
+{# src/components/navigation/tabs.html #}
+{% macro tabs(tabs_data=[]) %}
+<div x-data="{ active: {{ tabs_data[0].value or '0' }} }">
+  <div class="border-b border-gray-200">
+    <nav class="-mb-px flex space-x-8">
+      {% for tab in tabs_data %}
+        <button
+          @click="active = '{{ tab.value }}'"
+          :class="active === '{{ tab.value }}'"
+          class="
+            py-2 px-1 border-b-2 font-medium text-sm
+            {{ tab.value == tabs_data[0].value ? 'border-blue-500 text-gray-900' : 'border-transparent text-gray-500 hover:text-gray-700' }}
+          ">
+          {{ tab.label }}
+      {% endfor %}
+    </nav>
+  </div>
+
+  <div class="mt-4">
+    {% for tab in tabs_data %}
+      <div x-show="active === '{{ tab.value }}'" x-cloak>
+        {{ tab.content }}
+      </div>
+    {% endfor %}
+  </div>
+</div>
+{% endmacro %}
+
+{% macro pagination(current=1, total=10, range=2) %}
+<nav class="flex items-center justify-between">
+  <div class="flex-1 flex justify-between-sm">
+    <a href="?page={{ current - 1 if current > 1 else 1 }}"
+       class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50
+              {{ 'opacity-50 cursor-not-allowed' if current <= 1 else '' }}">
+      Anterior
+    </a>
+
+    <div class="hidden md:flex">
+      {% for p in range(max(1, current - range), min(total, current + range) + 1) %}
+        <a href="?page={{ p }}"
+           class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium
+                  {{ 'bg-blue-50 border-blue-500 text-blue-600' if p == current else 'bg-white text-gray-700 hover:bg-gray-50' }}
+                  -ml-px first:rounded-l-lg first:border-l last:rounded-r-lg">
+          {{ p }}
+        </a>
+      {% endfor %}
+    </div>
+
+    <a href="?page={{ current + 1 if current < total else total }}"
+       class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50
+              {{ 'opacity-50 cursor-not-allowed' if current >= total else '' }}">
+      Siguiente
+    </a>
+  </div>
+</nav>
+{% endmacro %}
+
+{% macro menu(items=[]) %}
+<div x-data="{ open: false }" class="relative inline-block text-left">
+  <button @click="open = !open"
+          @keydown.escape="open = false"
+          class="inline-flex w-full justify-center gap-2 rounded-md bg-white px-3 py-2 text-sm font-medium shadow-sm ring-1 ring-gray-200 hover:bg-gray-50 focus:outline-none">
+    Menu
+    <svg class="-mr-1 ml-1 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+        d="M19 9l-7 7-7-7"></path>
+    </svg>
+  </button>
+
+  <div x-show="open"
+       @click.away="open = false"
+       x-transition:enter="transition ease-out duration-100"
+       x-transition:enter-start="opacity-0 transform scale-90"
+       x-transition:enter-end="opacity-100 transform scale-100"
+       x-transition:leave="transition ease-in duration-75"
+       x-transition:leave-start="opacity-100 transform scale-100"
+       x-transition:leave-end="opacity-0 transform scale-90"
+       class="absolute right-0 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-10">
+
+    <div class="py-1">
+      {% for item in items %}
+        {% if item.divider %}
+          <div class="border-t border-gray-100 my-1"></div>
+        {% elif item.href %}
+          <a href="{{ item.href }}"
+             class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+            {{ item.label }}
+          </a>
+        {% else %}
+          <button @click="open = false; {{ item.onclick }}"
+                  class="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+            {{ item.label }}
+          </button>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endmacro %}
