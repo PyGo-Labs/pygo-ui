@@ -1,0 +1,43 @@
+{# src/components/base/grid.html #}
+{# PyGo UI — Grid System #}
+{% macro container(width="max-w-7xl", class="mx-auto px-4 sm:px-6 lg:px-8") %}
+<div class="{{ class }} {{ width }}">
+  {{ slot }}
+</div>
+{% endmacro %}
+
+{% macro row(class="flex flex-wrap gap-4") %}
+<div class="{{ class }}">
+  {{ slot }}
+</div>
+{% endmacro %}
+
+{% macro col(span=12, class="") %}
+<div class="
+  {% if span == 1 %}w-full
+  {% elif span == 2 %}w-1/2
+  {% elif span == 3 %}w-1/3
+  {% elif span == 4 %}w-1/4
+  {% elif span == 6 %}w-1/2
+  {% elif span == 12 %}w-full{% endif %}
+  {{ class }}">
+  {{ slot }}
+</div>
+{% endmacro %}
+
+{% macro responsive_grid(cols="1", gap="4") %}
+<div class="grid gap-{{ gap }} sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-{{ cols }}">
+  {{ slot }}
+</div>
+{% endmacro %}
+
+{% macro spacer(size="md") %}
+<div class="
+  {% if size == 'xs' %}h-2
+  {% elif size == 'sm' %}h-4
+  {% elif size == 'md' %}h-6
+  {% elif size == 'lg' %}h-8
+  {% elif size == 'xl' %}h-12
+  {% elif size == '2xl' %}h-16{% endif %}
+  w-full"></div>
+{% endmacro %}
