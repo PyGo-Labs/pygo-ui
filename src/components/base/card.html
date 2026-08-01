@@ -1,0 +1,38 @@
+{# src/components/base/card.html #}
+{% macro card(title=null, padding="p-6", shadow="shadow-md", class="") %}
+<div class="bg-white rounded-xl {{ shadow }} {{ class }}">
+  {% if title %}
+    <div class="px-{{ padding }} border-b">
+      <h3 class="text-lg font-semibold text-gray-900">{{ title }}</h3>
+    </div>
+  {% endif %}
+  <div class="{{ padding }}">
+    {{ slot }}
+  </div>
+</div>
+{% endmacro %}
+
+{% macro stat_card(label, value, icon=null, trend=null, trend_positive=true) %}
+<div class="bg-white rounded-xl shadow-md p-6">
+  <div class="flex items-center justify-between mb-2">
+    <span class="text-sm font-medium text-gray-600">{{ label }}</span>
+    {% if icon %}{{ icon|safe }}{% endif %}
+  </div>
+  <div class="text-3xl font-bold text-gray-900">{{ value }}</div>
+  {% if trend %}
+    <div class="mt-2 flex items-center text-sm">
+      {% if trend_positive %}
+        <svg class="w-4 h-4 text-green-500 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7 7 7-7"></path>
+        </svg>
+        <span class="text-green-600">{{ trend }} increase</span>
+      {% else %}
+        <svg class="w-4 h-4 text-red-500 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7-7-7 7"></path>
+        </svg>
+        <span class="text-red-600">{{ trend }} decrease</span>
+      {% endif %}
+    </div>
+  {% endif %}
+</div>
+{% endmacro %}

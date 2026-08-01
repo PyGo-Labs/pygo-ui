@@ -1,0 +1,24 @@
+/* src/utils/colors.css */
+/* PyGo UI Color Utilities */
+
+.text-pygo-blue { color: #2563EB; }
+.bg-pygo-blue { background-color: #2563EB; }
+.border-pygo-blue { border-color: #2563EB; }
+
+.text-pygo-green { color: #10B981; }
+.bg-pygo-green { background-color: #10B981; }
+
+.text-pygo-yellow { color: #F59E0B; }
+.bg-pygo-yellow { background-color: #F59E0B; }
+
+.text-pygo-dark { color: #0F172A; }
+.bg-pygo-dark { background-color: #0F172A; }
+
+/* Gradient utilities */
+.bg-pygo-gradient {
+  background: linear-gradient(135deg, #2563EB 0%, #10B981 100%);
+}
+
+.bg-pygo-gradient-reverse {
+  background: linear-gradient(135deg, #10B981 0%, #2563EB 100%);
+}

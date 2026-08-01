@@ -1,0 +1,69 @@
+{# src/components/data-display/table.html #}
+{% macro table(data, columns, searchable=false, sortable=true, paginated=true) %}
+<div class="overflow-x-auto">
+  <table class="min-w-full divide-y divide-gray-200">
+    <thead class="bg-gray-50">
+      <tr>
+        {% for col in columns %}
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            {% if sortable and col.sortable != false %}
+              <button class="hover:text-gray-700 focus:outline-none">
+                {{ col.label }}
+                {% if col.sort_key %}
+                  <span class="ml-1">↕</span>
+                {% endif %}
+              </button>
+            {% else %}
+              {{ col.label }}
+            {% endif %}
+          </th>
+        {% endfor %}
+      </tr>
+    </thead>
+    <tbody class="bg-white divide-y divide-gray-200">
+      {% for row in data %}
+        <tr class="hover:bg-gray-50">
+          {% for col in columns %}
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+              {% if col.format == 'currency' %}
+                ${{ '%.2f'|format(row[col.field]) }}
+              {% elif col.format == 'date' %}
+                {{ row[col.field]|date_format('%b %d, %Y') }}
+              {% else %}
+                {{ col.render ? col.render(row) : row[col.field] }}
+              {% endif %}
+            </td>
+          {% endfor %}
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endmacro %}
+
+{% macro badge(type="default", class="") %}
+<span class="inline-flex px-2.5 py-0.5 rounded-full text-xs font-medium
+  {% if type == 'primary' %}bg-blue-100 text-blue-800
+  {% elif type == 'success' %}bg-green-100 text-green-800
+  {% elif type == 'warning' %}bg-amber-100 text-amber-800
+  {% elif type == 'danger' %}bg-red-100 text-red-800
+  {% elif type == 'info' %}bg-indigo-100 text-indigo-800
+  {% else %}bg-gray-100 text-gray-800{% endif %}
+  {{ class }}
+">
+  {{ slot }}
+</span>
+{% endmacro %}
+
+{% macro tag(type="default", class="") %}
+<span class="inline-flex items-center px-2.5 py-0.5 rounded text-xs font-medium
+  {% if type == 'primary' %}bg-blue-600 text-white
+  {% elif type == 'success' %}bg-green-600 text-white
+  {% elif type == 'warning' %}bg-amber-600 text-white
+  {% elif type == 'danger' %}bg-red-600 text-white
+  {% else %}bg-gray-600 text-white{% endif %}
+  {{ class }}
+">
+  {{ slot }}
+</span>
+{% endmacro %}
