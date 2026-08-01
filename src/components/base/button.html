@@ -1,0 +1,51 @@
+{# src/components/base/button.html #}
+{#
+  PyGo UI — Button Component
+  Variants: primary | secondary | danger | success | ghost | link
+  Sizes: xs | sm | md | lg | xl
+#}
+{% macro button(
+  variant="primary",
+  size="md",
+  type="button",
+  disabled=false,
+  loading=false,
+  icon=null,
+  class=""
+) %}
+<button type="{{ type }}"
+  {% if disabled %}disabled{% endif %}
+  class="
+    inline-flex items-center justify-center
+    font-medium rounded-lg transition-all duration-200
+    focus:outline-none focus:ring-2 focus:ring-offset-2
+    {% if variant == 'primary' %}
+      bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500 shadow-sm
+    {% elif variant == 'secondary' %}
+      bg-white text-gray-700 border border-gray-300 hover:bg-gray-50 focus:ring-blue-500
+    {% elif variant == 'danger' %}
+      bg-red-600 text-white hover:bg-red-700 focus:ring-red-500 shadow-sm
+    {% elif variant == 'success' %}
+      bg-green-600 text-white hover:bg-green-700 focus:ring-green-500 shadow-sm
+    {% elif variant == 'ghost' %}
+      text-gray-700 hover:bg-gray-100 focus:ring-gray-500
+    {% elif variant == 'link' %}
+      text-blue-600 hover:text-blue-700 hover:underline p-0
+    {% endif %}
+    {% if size == 'xs' %}px-2 py-1 text-xs{% elif size == 'sm' %}px-3 py-1.5 text-sm{% elif size == 'md' %}px-4 py-2 text-sm{% elif size == 'lg' %}px-6 py-3 text-base{% elif size == 'xl' %}px-8 py-4 text-lg{% endif %}
+    {% if disabled %}opacity-50 cursor-not-allowed{% endif %}
+    {% if loading %}cursor-wait{% endif %}
+    {{ class }}
+  "
+  {{ attributes }}>
+  {% if loading %}
+    <svg class="animate-spin -ml-1 mr-2 h-4 w-4" fill="none" viewBox="0 0 24 24">
+      <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+      <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+    </svg>
+  {% elif icon %}
+    {{ icon|safe }}
+  {% endif %}
+  {{ slot }}
+</button>
+{% endmacro %}

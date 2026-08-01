@@ -1,0 +1,38 @@
+name: pygo-ui
+version: 0.1.0
+description: "Official UI component system for PyGo framework — HTMX + Alpine.js + Tailwind"
+author: "PyGo Labs"
+homepage: "https://pygo.dev/ui"
+repository: "https://github.com/pygo-labs/pygo-ui"
+documentation: "https://docs.pygo.dev/ui"
+
+pygo_version: ">=1.0.0"
+
+dependencies:
+  modules: []
+  assets:
+    - htmx: "^1.9.10"
+    - alpinejs: "^3.13.3"
+    - tailwindcss: "^3.4.0"
+
+features:
+  - name: "components"
+    description: "Reusable UI components"
+    enabled: true
+
+  - name: "themes"
+    description: "Customizable themes"
+    enabled: true
+
+  - name: "dark-mode"
+    description: "Dark mode support"
+    enabled: true
+
+ui:
+  config_path: "config/ui.yaml"
+  assets_path: "public/vendor/pygo-ui"
+  components_path: "components/pygo-ui"
+
+hooks:
+  on_install: "hooks.install"
+  on_uninstall: "hooks.uninstall"

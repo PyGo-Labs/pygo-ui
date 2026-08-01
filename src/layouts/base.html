@@ -1,0 +1,22 @@
+{# src/layouts/base.html #}
+<!DOCTYPE html>
+<html lang="en" {{ attributes|default(''):safe }}>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}PyGo App{% endblock %}</title>
+    <script src="https://unpkg.com/htmx.org@1.9.10/dist/htmx.min.js"></script>
+    <script src="https://unpkg.com/alpinejs@3.13.3/dist/cdn.min.js" defer></script>
+    <link rel="stylesheet" href="/vendor/pygo-ui/pygo-ui.css">
+    {% block head %}{% endblock %}
+</head>
+<body class="bg-gray-50 text-gray-900 antialiased">
+    {% block body %}
+    <div id="app">
+        {% block content %}{% endblock %}
+    </div>
+    {% endblock %}
+
+    {% block scripts %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,69 @@
+{# src/themes/default.css #}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* PyGo UI — Default Theme */
+
+/* Primary colors — PyGo palette */
+:root {
+  --color-primary-50: #eff6ff;
+  --color-primary-100: #dbeafe;
+  --color-primary-500: #3b82f6;
+  --color-primary-600: #2563EB;  /* PyGo Blue */
+  --color-primary-700: #1d4ed8;
+
+  /* Python Green */
+  --color-success: #10B981;
+
+  /* Go Yellow */
+  --color-warning: #F59E0B;
+
+  /* Dark */
+  --color-dark: #0F172A;
+
+  /* Semantic */
+  --color-danger: #dc2626;
+  --color-info: #2563eb;
+
+  /* Neutral */
+  --color-gray-50: #f9fafb;
+  --color-gray-100: #f3f4f6;
+  --color-gray-200: #e5e7eb;
+  --color-gray-300: #d1d5db;
+  --color-gray-700: #374151;
+  --color-gray-900: #111827;
+
+  /* Typography */
+  --font-family: 'Inter', system-ui, sans-serif;
+  --font-size-base: 16px;
+  --line-height: 1.5;
+
+  /* Borders */
+  --border-radius: 0.5rem;
+  --border-width: 1px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+
+  /* Transitions */
+  --transition-duration: 200ms;
+}
+
+/* Dark mode */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-gray-50: #111827;
+    --color-gray-100: #1f2937;
+    --color-gray-200: #374151;
+    --color-gray-300: #4b5563;
+    --color-gray-700: #d1d5db;
+    --color-gray-900: #f9fafb;
+  }
+}
+
+.dark {
+  color-scheme: dark;
+}
